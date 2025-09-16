@@ -5,6 +5,9 @@ package carrental;
 service CarRentalService {
     rpc AddCar(AddCarRequest) returns (AddCarResponse);
     rpc UpdateCar(UpdateCarRequest) returns (OperationResponse);
+    rpc RemoveCar(RemoveCarRequest) returns (OperationResponse);
+
+
 }
 
 message Car {
@@ -34,6 +37,10 @@ message UpdateCarRequest {
     optional float daily_price = 5;
     optional int32 mileage = 6;
     optional CarStatus status = 7;
+}
+
+message RemoveCarRequest {
+    string plate_number = 1; 
 }
 
 enum CarStatus {
