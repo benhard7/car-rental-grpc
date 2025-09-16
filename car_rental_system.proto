@@ -10,8 +10,9 @@ service CarRentalService {
     rpc ListAvailableCars(AvailableCarsRequest) returns (stream Car);
     rpc SearchCar(SearchCarRequest) returns (SearchCarResponse);
     rpc AddToCart(AddToCartRequest) returns (OperationResponse);
-     rpc PlaceReservation(PlaceReservationRequest) returns (ReservationResponse);
+    rpc PlaceReservation(PlaceReservationRequest) returns (ReservationResponse);
 
+    rpc CreateUsers(stream User) returns (OperationResponse);
 
 }
 
