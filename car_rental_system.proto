@@ -7,6 +7,10 @@ service CarRentalService {
     rpc UpdateCar(UpdateCarRequest) returns (OperationResponse);
     rpc RemoveCar(RemoveCarRequest) returns (OperationResponse);
 
+    rpc ListAvailableCars(AvailableCarsRequest) returns (stream Car);
+    rpc SearchCar(SearchCarRequest) returns (SearchCarResponse);
+    rpc AddToCart(AddToCartRequest) returns (OperationResponse);
+
 
 }
 
@@ -41,6 +45,35 @@ message UpdateCarRequest {
 
 message RemoveCarRequest {
     string plate_number = 1; 
+}
+
+message AvailableCarsRequest {
+    optional string filter_make = 1;   // e.g., "Toyota"
+    optional string filter_model = 2;  // e.g., "Camry"
+    optional int32 filter_year = 3;    // e.g., 2022
+    optional int32 max_results = 4;    // Optional limit on how many cars to return
+}
+
+message SearchCarRequest {
+    string plate_number = 1; // The unique plate number to search for
+}
+
+message SearchCarResponse {
+    oneof result {
+        Car car = 1;                // If the car is found
+        string not_found_message = 2; // If the car is not found
+    }
+}
+
+message CartItem {
+    string plate_number = 1; // The car to be rented
+    google.protobuf.Timestamp start_date = 2; // Rental period start
+    google.protobuf.Timestamp end_date = 3; // Rental period end
+}
+
+message AddToCartRequest {
+    string user_id = 1; // Which customer is adding to cart
+    CartItem cart_item = 2; // The car and rental dates
 }
 
 enum CarStatus {
