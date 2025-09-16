@@ -4,7 +4,7 @@ package carrental;
 
 service CarRentalService {
     rpc AddCar(AddCarRequest) returns (AddCarResponse);
-    
+    rpc UpdateCar(UpdateCarRequest) returns (OperationResponse);
 }
 
 message Car {
@@ -26,6 +26,15 @@ message AddCarResponse {
     bool success = 3;
 }
 
+message UpdateCarRequest {
+    string plate_number = 1;
+    optional string make = 2; 
+    optional string model = 3;
+    optional int32 year = 4;
+    optional float daily_price = 5;
+    optional int32 mileage = 6;
+    optional CarStatus status = 7;
+}
 
 enum CarStatus {
     STATUS_UNSPECIFIED = 0;
