@@ -10,6 +10,7 @@ service CarRentalService {
     rpc ListAvailableCars(AvailableCarsRequest) returns (stream Car);
     rpc SearchCar(SearchCarRequest) returns (SearchCarResponse);
     rpc AddToCart(AddToCartRequest) returns (OperationResponse);
+     rpc PlaceReservation(PlaceReservationRequest) returns (ReservationResponse);
 
 
 }
@@ -74,6 +75,18 @@ message CartItem {
 message AddToCartRequest {
     string user_id = 1; // Which customer is adding to cart
     CartItem cart_item = 2; // The car and rental dates
+}
+
+message PlaceReservationRequest {
+    string user_id = 1; // Which customer is placing the reservation
+}
+
+message ReservationResponse {
+    string reservation_id = 1; // Unique ID for this reservation
+    string message = 2;        // Confirmation or error message
+    bool success = 3;          // Whether the reservation was successful
+    float total_price = 4;     // The total cost of the reservation
+    repeated CartItem reserved_items = 5; // List of cars and dates that were reserved
 }
 
 enum CarStatus {
